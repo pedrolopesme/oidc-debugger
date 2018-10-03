@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.debuggerComponent {
+  padding: 24px;
+}
+
+.fluid {
+  width: 100%
+}
