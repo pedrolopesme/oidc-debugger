@@ -7,6 +7,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 class DebuggerForm extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            form: props.form
+        }
+    }
+
     render() {
         return (
             <form>

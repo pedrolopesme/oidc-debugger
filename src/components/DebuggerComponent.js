@@ -14,13 +14,32 @@ const styles = theme => ({
 });
 
 class DebuggerComponent extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            debugger : {
+                auth_uri: "",
+                redirect_uri: "",
+                client_id: "",
+                scope: "",
+                state: "",
+                nonce: "",
+                reponse: {
+                    type: "",
+                    mode: ""
+                }
+            }
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (<div className="debuggerComponent">
             <Grid container spacing={24}>
                 <Grid item xs={9}>
                     <Paper className={classes.paper}>
-                        <DebuggerForm />
+                        <DebuggerForm form={this.state.debugger} />
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
