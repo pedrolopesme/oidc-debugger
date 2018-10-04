@@ -5,36 +5,53 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 class DebuggerForm extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            form: props.form
+            ...props.form
         }
+    }
+
+    updateState = (evnt) => {
+        let target = evnt.target.name;
+        let value = target.type === 'checkbox' ? target.checked : target.value;
+        console.log(evnt.target, target, value);
+        this.setState({ [target]: value });
+    }
+
+    submit = (evnt) => {
+        evnt.preventDefault();
+        evnt.stopPropagation();
+        console.log(this.state);
+        return false;
     }
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.submit}>
                 <div>
-                    <TextField id="auth_uri" label="Authorize URI (required)" className="fluid" />
+                    <TextField name="auth_uri" label="Authorize URI (required)" className="fluid" onChange={this.updateState} />
                 </div>
                 <div>
-                    <TextField id="redirect_uri" label="Redirect URI (required)" className="fluid" />
+                    <TextField name="redirect_uri" label="Redirect URI (required)" className="fluid" onChange={this.updateState} />
                 </div>
                 <div>
-                    <TextField id="client_id" label="Client ID (required)" className="fluid" />
+                    <TextField name="client_id" label="Client ID (required)" className="fluid" onChange={this.updateState} />
                 </div>
                 <div>
-                    <TextField id="scope" label="Scope (required)" className="fluid" />
+                    <TextField name="scope" label="Scope (required)" className="fluid" onChange={this.updateState} />
                 </div>
                 <div>
-                    <TextField id="state" label="State" className="fluid" />
+                    <TextField name="state" label="State" className="fluid" onChange={this.updateState}/>
                 </div>
                 <div>
-                    <TextField id="nonce" label="Nonce" className="fluid" />
+                    <TextField name="nonce" label="Nonce" className="fluid" onChange={this.updateState}/>
                 </div>
 
                 <FormControl component="fieldset">
@@ -42,32 +59,37 @@ class DebuggerForm extends Component {
                     <FormGroup>
                         <div> Type </div>
                         <FormControlLabel
-                            control={<Checkbox value="code" color="primary" />}
+                            control={<Checkbox name="reponse_type_code" value="code" color="primary" />}
                             label="code" />
 
                         <FormControlLabel
-                            control={<Checkbox value="token" color="primary" />}
+                            control={<Checkbox name="reponse_type_token" value="token" color="primary" />}
                             label="token" />
 
                         <FormControlLabel
-                            control={<Checkbox value="id_token" color="primary" />}
+                            control={<Checkbox name="reponse_type_idtoken" value="id_token" color="primary" />}
                             label="id_token" />
                     </FormGroup>
 
-                    <FormGroup>
+                    <RadioGroup>
                         <div> Mode (required) </div>
                         <FormControlLabel
-                            control={<Checkbox value="query" color="primary" />}
+                            control={<Radio name="reponse_mode" value="query" color="primary" onChange={this.updateState} />}
                             label="query" />
 
                         <FormControlLabel
-                            control={<Checkbox value="form_post" color="primary" />}
+                            control={<Radio value="reponse_mode" value="form_post" color="primary" onChange={this.updateState} />}
                             label="form_post" />
 
                         <FormControlLabel
-                            control={<Checkbox value="fragment" color="primary" />}
+                            control={<Radio value="reponse_mode" value="fragment" color="primary" onChange={this.updateState} />}
                             label="fragment" />
-                    </FormGroup>
+                    </RadioGroup>
+
+                    <Button variant="contained" type="submit">
+                        Submit
+                    </Button>
+
                 </FormControl>
             </form>)
     }
