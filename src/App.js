@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import DebuggerComponent from './components/DebuggerComponent'
+import DebuggerComponent from './components/DebuggerComponent';
 
 class App extends Component {
   render() {
