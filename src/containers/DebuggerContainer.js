@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import DebuggerForm from './DebuggerForm'
+import DebuggerForm from '../components/DebuggerForm'
 
 const styles = theme => ({
     paper: {
@@ -13,8 +13,7 @@ const styles = theme => ({
     },
 });
 
-class DebuggerComponent extends Component {
-
+class DebuggerContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,8 +49,8 @@ class DebuggerComponent extends Component {
     }
 }
 
-DebuggerComponent.propTypes = {
+DebuggerContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DebuggerComponent);
+export default withStyles(styles)(DebuggerContainer);
