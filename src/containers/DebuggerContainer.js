@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import DebuggerForm from '../components/DebuggerForm'
+import DebuggerSavedConnections from '../components/DebuggerSavedConnections'
+import {Connections} from '../configs/Connections'
 
 const styles = theme => ({
     paper: {
@@ -42,7 +44,9 @@ class DebuggerContainer extends Component {
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper className={classes.paper}>something else</Paper>
+                    <Paper className={classes.paper}>
+                        <DebuggerSavedConnections connections={Connections}/>
+                    </Paper>
                 </Grid>
             </Grid>
         </div>)

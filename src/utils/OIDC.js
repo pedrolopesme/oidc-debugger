@@ -1,11 +1,11 @@
 import * as Oidc from 'oidc-client'
-import Connections from '../configs/Connections'
 
+// TODO refactor
 class OIDC {
-    connect = () => {
+    connect = (connection) => {
         Oidc.Log.logger = console;
         Oidc.Log.level = Oidc.Log.INFO;
-        var client = new Oidc.OidcClient(Connections[0].connection);
+        var client = new Oidc.OidcClient(connection);
 
         client.createSigninRequest({ state: { bar: 15 } }).then(function(req) {
             console.log("signin request", req.url, req);
