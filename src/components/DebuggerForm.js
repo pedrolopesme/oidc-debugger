@@ -28,7 +28,7 @@ class DebuggerForm extends Component {
     submit = (evnt) => {
         evnt.preventDefault();
         evnt.stopPropagation();
-        new OIDC().connect();
+        new OIDC().connect(this.state);
         return false;
     }
 
@@ -36,7 +36,8 @@ class DebuggerForm extends Component {
         return (
             <form onSubmit={this.submit}>
                 <div>
-                    <TextField name="auth_uri" label="Authorize URI (required)" className="fluid" value={this.state.auth_uri} onChange={this.updateState} />
+                    {this.state.authority}
+                    <TextField name="authority" label="Authorize URI (required)" className="fluid" value={this.state.authority} onChange={this.updateState} />
                 </div>
                 <div>
                     <TextField name="redirect_uri" label="Redirect URI (required)" className="fluid" value={this.state.redirect_uri} onChange={this.updateState} />
@@ -45,16 +46,28 @@ class DebuggerForm extends Component {
                     <TextField name="client_id" label="Client ID (required)" className="fluid" value={this.state.client_id} onChange={this.updateState} />
                 </div>
                 <div>
-                    <TextField name="scope" label="Scope (required)" className="fluid" value={this.state.scope} onChange={this.updateState} />
+                    <TextField name="post_logout_redirect_uri" label="Post Logout Redirect URI" className="fluid" value={this.state.post_logout_redirect_uri} onChange={this.updateState} />
                 </div>
                 <div>
                     <TextField name="state" label="State" className="fluid" value={this.state.state} onChange={this.updateState} />
                 </div>
                 <div>
-                    <TextField name="nonce" label="Nonce" className="fluid" value={this.state.nonce} onChange={this.updateState} />
+                    <TextField name="scope" label="Scope (required)" className="fluid" value={this.state.scope} onChange={this.updateState} />
+                </div>
+                <div>
+                    <TextField name="response_type" label="Response Type" className="fluid" value={this.state.response_type} onChange={this.updateState} />
                 </div>
 
+                <FormControlLabel
+                    control={<Checkbox name="filterProtocolClaims" value="true" color="primary" checked={this.state.filterProtocolClaims} onChange={this.updateState} />}
+                    label="Filter Protocol Claims" />
+
+                <FormControlLabel
+                    control={<Checkbox name="loadUserInfo" value="true" color="primary" checked={this.state.loadUserInfo} onChange={this.updateState} />}
+                    label="Load User Info" />
+
                 <FormControl component="fieldset">
+                    {/* 
                     <FormLabel component="legend"> Response </FormLabel>
                     <FormGroup>
                         <div> Type </div>
@@ -83,6 +96,7 @@ class DebuggerForm extends Component {
                             <FormControlLabel control={<Radio />} label="fragment" value="fragment" />
                         </RadioGroup>
                     </FormControl>
+                    */}
 
                     <Button variant="contained" type="submit">
                         Submit
