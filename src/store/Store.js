@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { connectionReducer } from '../reducers/Reducers'
 
 export const reducers = combineReducers({
@@ -10,4 +10,4 @@ export function newStore(initialState = {}) {
     return store;
 };
 
-export const store = configureStore();
+export const store = newStore();

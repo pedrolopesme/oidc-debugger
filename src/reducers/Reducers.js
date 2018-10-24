@@ -1,4 +1,4 @@
-import * as constants from './constants'
+import * as constants from '../actions/Constants'
 
 export const connectionReducer = (state = {}, action) => {
     switch (action.type) {
