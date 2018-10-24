@@ -1,4 +1,4 @@
-import * as constants from './constants'
+import * as constants from './Constants'
 
 export const setConnection = (connection) => ({
     type: constants.SET_CONNECTION,

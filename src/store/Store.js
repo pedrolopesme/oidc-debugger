@@ -1,6 +1,11 @@
 import { createStore } from 'redux';
+import { connectionReducer } from '../reducers/Reducers'
 
-export function newStore(reducers, initialState = {}) {
+export const reducers = combineReducers({
+    connectionReducer,
+});
+
+export function newStore(initialState = {}) {
     const store = createStore(reducers, initialState);
     return store;
 };
