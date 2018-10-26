@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux';
-import { connectionReducer } from '../reducers/Reducers'
+import { connection } from './Reducers'
 
 export const reducers = combineReducers({
-    connectionReducer,
+    connection
 });
 
 export function newStore(initialState = {}) {
