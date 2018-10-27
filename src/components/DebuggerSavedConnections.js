@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 
 class DebuggerSavedConnections extends Component {
     constructor(props) {
