@@ -13,18 +13,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div>
-          {JSON.stringify(this.props.connection)}
-
-          <button
-            onClick={() =>
-              this.props.activateConnection({ connection: Connections[0] })
-            }
-          >
-            Click Me!
-          </button>
-        </div>
-
         <Route exact path="/logout" component={LogoutContainer} />
         <Route exact path="/redirect" component={RedirectContainer} />
         <Route exact path="/"> 
