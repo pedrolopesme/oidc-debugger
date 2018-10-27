@@ -13,7 +13,7 @@ class DebuggerSavedConnections extends Component {
     render = () => {
         return (
             <div>
-                <h4> Saved Connections </h4>
+                <h2> Saved Connections </h2>
                 {this.state.connections ? (
                     <ul>
                         {this.state.connections.map(connection =>

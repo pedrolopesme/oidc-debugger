@@ -1,18 +1,7 @@
-import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import DebuggerForm from '../components/DebuggerForm'
-import DebuggerSavedConnections from '../components/DebuggerSavedConnections'
-import { Connections } from '../configs/Connections'
-
-const styles = theme => ({
-    paper: {
-        padding: theme.spacing.unit * 2,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-});
+import React, { Component } from 'react';
+import DebuggerForm from '../components/DebuggerForm';
+import DebuggerSavedConnections from '../components/DebuggerSavedConnections';
+import { Connections } from '../configs/Connections';
 
 class DebuggerContainer extends Component {
     constructor(props) {
@@ -28,8 +17,8 @@ class DebuggerContainer extends Component {
                 scope: "",
                 state: "",
                 nonce: "",
-                response_type:"",
-                response_mode:"",
+                response_type: "",
+                response_mode: "",
                 filterProtocolClaims: true,
                 loadUserInfo: true
             }
@@ -37,23 +26,17 @@ class DebuggerContainer extends Component {
     }
 
     render() {
-        console.log(this.state)
-        const { classes } = this.props;
-        return (<div className="debuggerComponent">
-            <Grid container spacing={24}>
-                <Grid item xs={9}>
-                    <Paper className={classes.paper}>
-                        <DebuggerForm form={this.state.activeConnection} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>
-                        <DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} />
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div>)
+        return (
+            <div className="debuggerComponent">
+                <div class="sidebar">
+                    <DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} />
+                </div>
+                <div class="content">
+                    <DebuggerForm form={this.state.activeConnection} />
+                </div>
+
+            </div>)
     }
 }
 
-export default withStyles(styles)(DebuggerContainer);
+export default DebuggerContainer;

@@ -29,9 +29,9 @@ class DebuggerForm extends Component {
     }
 
     render = () => {
-        console.log(this.state)
         return (
             <form onSubmit={this.submit}>
+                <h1> OIDC Connection </h1>
                 <div>
                     {this.state.authority}
                     <TextField name="authority" label="Authorize URI (required)" className="fluid" value={this.state.authority} onChange={this.updateState} />

@@ -1,6 +1,6 @@
 export const Connections = [
     {
-        name: "GloboID DEV",
+        name: "My Server One",
         connection: {
             authority: "https://myoidc.com",
             client_id: "my-client",
