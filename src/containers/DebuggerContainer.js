@@ -19,6 +19,8 @@ class DebuggerContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeConnection: props.activeConnection,
+            activateConnection: props.activateConnection,
             debugger: {
                 authority: "",
                 redirect_uri: "",
@@ -35,36 +37,24 @@ class DebuggerContainer extends Component {
         }
     }
 
-    /**
-     * Fills the debugger form with a saved connection
-     * @param connection from configs/Connections
-     */
-    selectConnection = connection => {
-        console.log(connection)
-        this.setState({ debugger: connection });
-    }
-
     render() {
+        console.log(this.state)
         const { classes } = this.props;
         return (<div className="debuggerComponent">
             <Grid container spacing={24}>
                 <Grid item xs={9}>
                     <Paper className={classes.paper}>
-                        <DebuggerForm form={this.state.debugger} />
+                        <DebuggerForm form={this.state.activeConnection} />
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
                     <Paper className={classes.paper}>
-                        <DebuggerSavedConnections connections={Connections} selectConnection={this.selectConnection} />
+                        <DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} />
                     </Paper>
                 </Grid>
             </Grid>
         </div>)
     }
 }
-
-DebuggerContainer.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(DebuggerContainer);

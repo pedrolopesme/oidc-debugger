@@ -33,6 +33,7 @@ class DebuggerForm extends Component {
     }
 
     render = () => {
+        console.log(this.state)
         return (
             <form onSubmit={this.submit}>
                 <div>

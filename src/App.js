@@ -27,7 +27,11 @@ class App extends Component {
 
         <Route exact path="/logout" component={LogoutContainer} />
         <Route exact path="/redirect" component={RedirectContainer} />
-        <Route exact path="/" component={DebuggerContainer} activateConnection={this.props.activateConnection} />
+        <Route exact path="/"> 
+          <DebuggerContainer 
+            activeConnection={this.props.connection} 
+            activateConnection={this.props.activateConnection} />
+        </Route>
       </div>
     );
   }

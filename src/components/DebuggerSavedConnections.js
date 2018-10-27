@@ -6,7 +6,7 @@ class DebuggerSavedConnections extends Component {
         super(props);
         this.state = {
             connections: props.connections,
-            selectConnection: props.selectConnection
+            activateConnection: props.activateConnection
         }
     }
 
@@ -17,7 +17,7 @@ class DebuggerSavedConnections extends Component {
                 {this.state.connections ? (
                     <ul>
                         {this.state.connections.map(connection =>
-                            <li key={connection.name} onClick={() => this.state.selectConnection(connection.connection)}>
+                            <li key={connection.name} onClick={() => this.state.activateConnection(connection.connection)}>
                                 {connection.name} - client: <b> {connection.connection.client_id} </b>
                             </li>
                         )}
@@ -31,7 +31,7 @@ class DebuggerSavedConnections extends Component {
 
 DebuggerSavedConnections.propTypes = {
     connections: PropTypes.arrayOf(PropTypes.object),
-    selectConnection: PropTypes.func.isRequired
+    activateConnection: PropTypes.func.isRequired
 };
 
 export default DebuggerSavedConnections;
