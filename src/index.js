@@ -6,11 +6,17 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import { store } from './redux/Store';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import theme from './theme';
+
+
 
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App />
+            <MuiThemeProvider theme={theme}>
+                <App />
+            </MuiThemeProvider>
         </Provider>
     </BrowserRouter>, document.getElementById('root'));
 
