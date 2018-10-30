@@ -6,13 +6,14 @@ import RedirectContainer from './containers/RedirectContainer';
 import LogoutContainer from './containers/LogoutContainer';
 import { activateConnection } from './redux/Actions.js';
 import { connect } from 'react-redux';
-import { Connections } from './configs/Connections';
+import ButtonAppBar from './components/AppBar';
 
 class App extends Component {
   render() {
 
     return (
       <div className="App">
+        <ButtonAppBar />
         <Route exact path="/logout" component={LogoutContainer} />
         <Route exact path="/redirect" component={RedirectContainer} />
         <Route exact path="/"> 

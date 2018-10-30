@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Card from '@material-ui/core/Card';
 
 class DebuggerSavedConnections extends Component {
     constructor(props) {
@@ -14,15 +15,16 @@ class DebuggerSavedConnections extends Component {
         return (
             <div>
                 <h2> Saved Connections </h2>
-                {this.state.connections ? (
-                    <ul>
-                        {this.state.connections.map(connection =>
-                            <li key={connection.name} onClick={() => this.state.activateConnection(connection.connection)}>
-                                {connection.name} - client: <b> {connection.connection.client_id} </b>
-                            </li>
-                        )}
-                    </ul>
-                ) : (
+                {this.state.connections ? 
+                    this.state.connections.map(connection =>
+                        <Card key={connection.name} 
+                            onClick={() => this.state.activateConnection(connection.connection)}
+                            className="savedConnection">
+                            <div className="connection"> {connection.name} </div> 
+                            <div className="client"> {connection.connection.client_id} </div>
+                        </Card>
+                    )
+                    : (
                         <div> There's no saved connections </div>
                     )}
             </div>)
