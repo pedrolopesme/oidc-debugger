@@ -28,10 +28,10 @@ class DebuggerContainer extends Component {
     render() {
         return (
             <div className="debuggerComponent">
-                <div class="sidebar">
+                <div className="sidebar">
                     <DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} />
                 </div>
-                <div class="content">
+                <div className="content">
                     <DebuggerForm form={this.state.activeConnection} />
                 </div>
 
