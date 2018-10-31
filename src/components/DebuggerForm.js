@@ -95,10 +95,9 @@ class DebuggerForm extends Component {
                     </FormControl>
                     */}
 
-                    <Button variant="contained" type="submit">
-                        Submit
+                    <Button variant="extendedFab" type="submit">
+                        <div className="submit"> Submit </div>
                     </Button>
-
                 </FormControl>
             </form>)
     }

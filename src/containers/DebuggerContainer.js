@@ -31,7 +31,7 @@ class DebuggerContainer extends Component {
             <SplitPane 
                 className="debuggerComponent"
                 split="vertical" 
-                minSize={100} 
+                minSize={200} 
                 defaultSize={ parseInt(localStorage.getItem('splitPos'), 10) || 250 }
                 onChange={ size => localStorage.setItem('splitPos', size) }>
                 <div className="sidebar"><DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} /></div>
