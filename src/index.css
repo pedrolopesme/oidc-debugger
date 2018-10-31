@@ -6,13 +6,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #d3dde2;
   position: relative;
 }
 
 html, body {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 h1, h2 {
@@ -22,55 +22,20 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2.2em;
+  color: #2196f3;
 }
 
 h2 {
   font-size: 1.2em;
 }
 
-.debuggerComponent{
-  height: 100%;
-  width: 100%;
-  display: table;
-  position: absolute;
-}
-
-.debuggerComponent>div{
-  display:table-cell;
-  height:100%;
-}
-
-.debuggerComponent:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.debuggerComponent div.sidebar {
-  position: absolute;
-  width: 200px;
-  height: 100%;
-  background: rgb(61, 128, 161);
-  box-shadow: inset -25px 0px 25px -25px rgba(0,0,0,0.45);
-  overflow-y: scroll;
-}
-
 .debuggerComponent div.sidebar>div {
-  padding: 25px;
+  padding: 5px 10px;
 }
 
 .debuggerComponent div.sidebar h2 {
-  color: #fff;
-  margin: 35px 0;
-}
-
-.debuggerComponent div.content {
-  float: left;
-  width: 65%;
-  height: 100%;
-  margin-left: 250px;
-  padding: 25px 25px 25px 0
+  margin: 25px 0 15px 0;
 }
 
 .fluid {
@@ -78,7 +43,7 @@ h2 {
 }
 
 .savedConnection {
-  padding: 25px;
+  padding: 25px 25px 0 25px;
   text-align: left;
   cursor: pointer;
   transition: all .1s ease-in-out;
@@ -92,12 +57,64 @@ h2 {
 
 .savedConnection .connection {
   font-family: 'Roboto', sans-serif;
-  font-size: .8em;
+  font-size: 1em;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
 .savedConnection .client {
-  font-size: .6em;
+  font-size: .8em;
   color: #666;
+}
+
+.savedConnection .material-icons {
+  float: right;
+  position: relative;
+  top: -15px;
+  color: #2196f3;
+}
+
+.Resizer {  
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+}
+
+.Resizer:hover {
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
+}
+
+.Resizer.horizontal {
+  height: 11px;
+  margin: -5px 0;
+  border-top: 5px solid rgba(255, 255, 255, 0);
+  border-bottom: 5px solid rgba(255, 255, 255, 0);
+  cursor: row-resize;
+  width: 100%;
+}
+
+.Resizer.horizontal:hover {
+  border-top: 5px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+}
+
+.Resizer.vertical {
+  width: 50px;
+  margin: 0 -5px;
+  border-left: 5px solid rgba(255, 255, 255, 0);
+  border-right: 5px solid rgba(255, 255, 255, 0);
+  cursor: col-resize;
+  background: url('/dots.png') no-repeat center center;
+}
+
+.Resizer.disabled {
+cursor: not-allowed;
+}
+.Resizer.disabled:hover {
+border-color: transparent;
 }

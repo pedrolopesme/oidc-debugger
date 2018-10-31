@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DebuggerForm from '../components/DebuggerForm';
 import DebuggerSavedConnections from '../components/DebuggerSavedConnections';
 import { Connections } from '../configs/Connections';
+import SplitPane from 'react-split-pane'
 
 class DebuggerContainer extends Component {
     constructor(props) {
@@ -27,15 +28,16 @@ class DebuggerContainer extends Component {
 
     render() {
         return (
-            <div className="debuggerComponent">
-                <div className="sidebar">
-                    <DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} />
-                </div>
-                <div className="content">
-                    <DebuggerForm form={this.state.activeConnection} />
-                </div>
-
-            </div>)
+            <SplitPane 
+                className="debuggerComponent"
+                split="vertical" 
+                minSize={100} 
+                defaultSize={ parseInt(localStorage.getItem('splitPos'), 10) || 250 }
+                onChange={ size => localStorage.setItem('splitPos', size) }>
+                <div className="sidebar"><DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} /></div>
+                <div className="content"><DebuggerForm form={this.state.activeConnection} /></div>
+            </SplitPane>
+        )
     }
 }
 
