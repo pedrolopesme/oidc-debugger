@@ -94,11 +94,13 @@ class DebuggerForm extends Component {
                         </RadioGroup>
                     </FormControl>
                     */}
-
-                    <Button variant="extendedFab" type="submit">
-                        <div className="submit"> Submit </div>
-                    </Button>
                 </FormControl>
+                <div className="alignRight">
+                    <Button variant="extendedFab" type="submit" color="secondary">
+                        <div className="submit"> Test </div>
+                        <i class="material-icons"> send</i>
+                    </Button>
+                </div>
             </form>)
     }
 }
