@@ -33,7 +33,6 @@ class DebuggerForm extends Component {
             <form onSubmit={this.submit}>
                 <h1> Test Connection </h1>
                 <div>
-                    {this.state.authority}
                     <TextField name="authority" label="Authorize URI (required)" className="fluid" value={this.state.authority} onChange={this.updateState} />
                 </div>
                 <div>
@@ -63,38 +62,6 @@ class DebuggerForm extends Component {
                     control={<Checkbox name="loadUserInfo" value="true" color="primary" checked={this.state.loadUserInfo} onChange={this.updateState} />}
                     label="Load User Info" />
 
-                <FormControl component="fieldset">
-                    {/* 
-                    <FormLabel component="legend"> Response </FormLabel>
-                    <FormGroup>
-                        <div> Type </div>
-                        <FormControlLabel
-                            control={<Checkbox name="reponse_type_code" value="code" color="primary" checked={this.state.reponse_type_code} onChange={this.updateState} />}
-                            label="code" />
-
-                        <FormControlLabel
-                            control={<Checkbox name="reponse_type_token" value="token" color="primary" checked={this.state.reponse_type_token} onChange={this.updateState} />}
-                            label="token" />
-
-                        <FormControlLabel
-                            control={<Checkbox name="reponse_type_idtoken" value="id_token" color="primary" checked={this.state.reponse_type_idtoken} onChange={this.updateState} />}
-                            label="id_token" />
-                    </FormGroup>
-
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend">Mode (required)</FormLabel>
-                        <RadioGroup
-                            aria-label="Mode"
-                            name="reponse_mode"
-                            onChange={this.updateState}
-                            value={this.state.reponse_mode}>
-                            <FormControlLabel control={<Radio />} label="query" value="query" />
-                            <FormControlLabel control={<Radio />} label="form_post" value="form_post" />
-                            <FormControlLabel control={<Radio />} label="fragment" value="fragment" />
-                        </RadioGroup>
-                    </FormControl>
-                    */}
-                </FormControl>
                 <div className="alignRight">
                     <Button variant="extendedFab" type="submit" color="secondary">
                         <div className="submit"> Test </div>
