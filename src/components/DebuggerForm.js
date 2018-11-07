@@ -10,10 +10,18 @@ class DebuggerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props.form
+            authority: "",
+            redirect_uri: "",
+            client_id: "",
+            post_logout_redirect_uri: "",
+            scope: "",
+            state: "",
+            nonce: "",
+            response_type: "",
+            response_mode: "",
+            filterProtocolClaims: true,
+            loadUserInfo: true
         }
-
-        console.log(this.props.connection);
     }
 
     updateState = (evnt) => {
@@ -30,7 +38,7 @@ class DebuggerForm extends Component {
     }
 
     componentWillReceiveProps = (props) => {
-        this.setState({...props.connection});
+        this.setState({ ...props.connection });
     }
 
     render = () => {
