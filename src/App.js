@@ -17,7 +17,6 @@ class App extends Component {
         <Route exact path="/redirect" component={RedirectContainer} />
         <Route exact path="/"> 
           <DebuggerContainer 
-            activeConnection={this.props.connection} 
             activateConnection={this.props.activateConnection} />
         </Route>
       </div>
@@ -26,7 +25,6 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  connection: state.connection
 });
 
 const mapDispatchToProps = {

@@ -8,21 +8,7 @@ class DebuggerContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeConnection: props.activeConnection,
-            activateConnection: props.activateConnection,
-            debugger: {
-                authority: "",
-                redirect_uri: "",
-                client_id: "",
-                post_logout_redirect_uri: "",
-                scope: "",
-                state: "",
-                nonce: "",
-                response_type: "",
-                response_mode: "",
-                filterProtocolClaims: true,
-                loadUserInfo: true
-            }
+            activateConnection: props.activateConnection
         }
     }
 
@@ -35,7 +21,7 @@ class DebuggerContainer extends Component {
                 defaultSize={ parseInt(localStorage.getItem('splitPos'), 10) || 250 }
                 onChange={ size => localStorage.setItem('splitPos', size) }>
                 <div className="sidebar"><DebuggerSavedConnections connections={Connections} activateConnection={this.state.activateConnection} /></div>
-                <div className="content"><DebuggerForm form={this.state.activeConnection} /></div>
+                <div className="content"><DebuggerForm /></div>
             </SplitPane>
         )
     }

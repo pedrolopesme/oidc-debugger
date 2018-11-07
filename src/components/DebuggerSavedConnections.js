@@ -22,7 +22,7 @@ class DebuggerSavedConnections extends Component {
                             className="savedConnection">
                             <div className="connection"> {connection.name} </div> 
                             <div className="client"> {connection.connection.client_id} </div>
-                            <i class="material-icons"> arrow_right </i>
+                            <i className="material-icons"> arrow_right </i>
                         </Card>
                     )
                     : (

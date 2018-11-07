@@ -4,14 +4,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react';
 import OIDC from '../utils/OIDC';
+import { connect } from 'react-redux';
 
 class DebuggerForm extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             ...props.form
         }
+
+        console.log(this.props.connection);
     }
 
     updateState = (evnt) => {
@@ -25,6 +27,10 @@ class DebuggerForm extends Component {
         evnt.stopPropagation();
         new OIDC().connect(this.state);
         return false;
+    }
+
+    componentWillReceiveProps = (props) => {
+        this.setState({...props.connection});
     }
 
     render = () => {
@@ -64,11 +70,23 @@ class DebuggerForm extends Component {
                 <div className="alignRight">
                     <Button variant="extendedFab" type="submit" color="secondary">
                         <div className="submit"> Test </div>
-                        <i class="material-icons"> send</i>
+                        <i className="material-icons"> send</i>
                     </Button>
                 </div>
             </form>)
     }
 }
 
-export default DebuggerForm;
+const mapStateToProps = state => ({
+    connection: state.connection
+});
+
+const mapDispatchToProps = {
+};
+
+const ConnectedDebuggerForm = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DebuggerForm);
+
+export default ConnectedDebuggerForm;
