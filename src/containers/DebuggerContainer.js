@@ -17,7 +17,7 @@ class DebuggerContainer extends Component {
             const connections = require('../configs/Connections');
             return connections.Connections;    
         } catch (error) {
-            console.debug("No saved connections saved under /config dir")
+            console.debug("No saved connections saved under src/config dir")
         }
     
         return [];
