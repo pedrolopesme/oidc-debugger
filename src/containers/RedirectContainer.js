@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as Oidc from 'oidc-client';
 import IdToken from '../components/IdToken';
-import AccessToken from '../components/AccessToken';
+import RefreshToken from '../components/RefreshToken';
 
 class RedirectContainer extends Component {
     constructor(props) {
@@ -26,6 +26,7 @@ class RedirectContainer extends Component {
         <div className="redirect-container">
             <IdToken />
             <AccessToken />
+            <RefreshToken />
             {/* <h3> User Data </h3>
             <div><pre> {this.state.user && (
                 JSON.stringify(this.state.user, null, 2) 
