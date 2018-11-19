@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as Oidc from 'oidc-client';
+import IdToken from '../components/IdToken';
 
 class RedirectContainer extends Component {
     constructor(props) {
@@ -22,10 +23,11 @@ class RedirectContainer extends Component {
     render() {
         return (
         <div className="redirect-container">
-            <h3> User Data </h3>
+            <IdToken />
+            {/* <h3> User Data </h3>
             <div><pre> {this.state.user && (
                 JSON.stringify(this.state.user, null, 2) 
-            )}</pre></div>
+            )}</pre></div> */}
         </div>)
     }
 }
