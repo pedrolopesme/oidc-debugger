@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as Oidc from 'oidc-client';
 import IdToken from '../components/IdToken';
 import RefreshToken from '../components/RefreshToken';
+import AccessToken from '../components/AccessToken';
 
 class RedirectContainer extends Component {
     constructor(props) {
