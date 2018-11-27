@@ -130,3 +130,7 @@ border-color: transparent;
 .alignRight {
   text-align: right;
 }
+
+.redirect-container {
+  text-align: start;
+}
