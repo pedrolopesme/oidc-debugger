@@ -13,12 +13,12 @@ class App extends Component {
     return (
       <div className="App">
         <ButtonAppBar />
-        <Route exact path="/logout" component={LogoutContainer} />
-        <Route exact path="/redirect" component={RedirectContainer} />
-        <Route exact path="/"> 
+        <Route path="/logout" component={LogoutContainer} />
+        <Route path="/redirect" component={RedirectContainer} />
+        <Route exact path="/" render={() => 
           <DebuggerContainer 
-            activateConnection={this.props.activateConnection} />
-        </Route>
+          activateConnection={this.props.activateConnection} />
+        }/> 
       </div>
     );
   }
