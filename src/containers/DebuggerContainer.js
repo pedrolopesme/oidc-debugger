@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DebuggerForm from '../components/DebuggerForm';
 import DebuggerSavedConnections from '../components/DebuggerSavedConnections';
-
 import SplitPane from 'react-split-pane'
 
 class DebuggerContainer extends Component {
