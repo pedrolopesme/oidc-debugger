@@ -5,13 +5,14 @@ import Tab from '@material-ui/core/Tab';
 import jwtDecode from 'jwt-decode';
 import ReactJson from 'react-json-view';
 
-class IdToken extends Component {
+class Token extends Component {
     state = {
         value: 0,
     };
 
     constructor(props) {
         super(props)
+        this.name = props.name;
         this.token = props.token;
         this.parsedToken = jwtDecode(this.token);
     }
@@ -25,7 +26,7 @@ class IdToken extends Component {
         const { value } = this.state;
 
         return <div>
-            <h3>ID Token</h3>
+            <h3>{this.name}</h3>
             <Paper>
                 <Tabs
                     value={this.state.value}
