@@ -1,6 +1,7 @@
 import * as Oidc from 'oidc-client';
 import React, { Component } from 'react';
 import Token from '../components/Token';
+import JsonComponent from '../components/JsonComponent';
 
 class RedirectContainer extends Component {
     constructor(props) {
@@ -21,15 +22,18 @@ class RedirectContainer extends Component {
     }
 
     render() {
-        return (
-            <div className="redirect-container">
-                {this.state.user && (
+        if (this.state.user) {
+            const { id_token, access_token, ...auth } = this.state.user;
+            return (
+                <div className="redirect-container">
                     <div>
-                        <Token name="Id Token" token={this.state.user.id_token} />
-                        <Token name="Access Token" token={this.state.user.access_token} />
+                        <JsonComponent name="Auth Info" content={auth} />
+                        <Token name="Id Token" token={id_token} />
+                        <Token name="Access Token" token={access_token} />
                     </div>
-                )}
-            </div>)
+                </div>)
+        }
+        return <div></div>;
     }
 }
 
