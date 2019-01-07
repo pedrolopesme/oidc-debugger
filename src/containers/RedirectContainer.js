@@ -1,10 +1,6 @@
-import React, { Component } from 'react'
 import * as Oidc from 'oidc-client';
-import IdToken from '../components/IdToken';
-import RefreshToken from '../components/RefreshToken';
-import AccessToken from '../components/AccessToken';
-import ReactJson from 'react-json-view';
-import SplitPane from 'react-split-pane';
+import React, { Component } from 'react';
+import Token from '../components/Token';
 
 class RedirectContainer extends Component {
     constructor(props) {
@@ -29,27 +25,10 @@ class RedirectContainer extends Component {
             <div className="redirect-container">
                 {this.state.user && (
                     <div>
-                        <IdToken token={this.state.user.id_token} />
+                        <Token name="Id Token" token={this.state.user.id_token} />
+                        <Token name="Access Token" token={this.state.user.access_token} />
                     </div>
                 )}
-                
-                {/* {this.state.user && ( 
-                    // <SplitPane 
-                    //     split="vertical" 
-                    //     minSize={200} 
-                    //     defaultSize={ parseInt(localStorage.getItem('splitPos'), 10) || 250 }
-                    //     onChange={ size => localStorage.setItem('splitPos', size) }>
-                    //     <div className="sidebar">
-                    //         Actions
-                    //     </div>
-                    //     <div className="content">
-                    //         <div className="react-json">
-                    //             <ReactJson src={this.state.user} />
-                    //         </div>
-                    //     </div>
-                    // </SplitPane>
-                // )}
-                */}
             </div>)
     }
 }
