@@ -47,4 +47,4 @@ class Token extends Component {
     }
 }
 
-export default IdToken;
+export default Token;
