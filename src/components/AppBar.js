@@ -29,11 +29,7 @@ function ButtonAppBar(props) {
         <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
           <MenuIcon />
         </IconButton>
-        <Link to="/">
-          <Typography variant="title" color="inherit" className={classes.grow}>
-            OIDC Toolbox
-          </Typography>
-        </Link>
+        <h1>  <Link to="/" className="App-logo"> OIDC Toolbox  </Link> </h1>
       </Toolbar>
     </AppBar>
   );
