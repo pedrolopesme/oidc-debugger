@@ -7,6 +7,7 @@ import LogoutContainer from './containers/LogoutContainer';
 import { activateConnection } from './redux/Actions.js';
 import { connect } from 'react-redux';
 import ButtonAppBar from './components/AppBar';
+import { withRouter } from "react-router";
 
 class App extends Component {
   render() {
@@ -36,4 +37,4 @@ const AppContainer = connect(
   mapDispatchToProps
 )(App);
 
-export default AppContainer;
+export default withRouter(AppContainer);
