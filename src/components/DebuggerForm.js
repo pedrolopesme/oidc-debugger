@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 import OIDC from '../utils/OIDC';
 import { connect } from 'react-redux';
 
+const RESPONSE_TYPES = { ID_TOKEN: "id_token", TOKEN : "token", CODE: "code" }
+
 class DebuggerForm extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +27,7 @@ class DebuggerForm extends Component {
     }
 
     updateState = (evnt) => {
-        let target = evnt.target.name;
+        const target = evnt.target.name;
         let value = evnt.target.type === 'checkbox' ? evnt.target.checked : evnt.target.value;
         this.setState({ [target]: value });
     }
@@ -33,6 +35,11 @@ class DebuggerForm extends Component {
     submit = (evnt) => {
         evnt.preventDefault();
         evnt.stopPropagation();
+        
+        const oidcParams = {
+            ...this.state,
+        }
+
         new OIDC().connect(this.state);
         return false;
     }
@@ -65,6 +72,18 @@ class DebuggerForm extends Component {
                 </div>
                 <div>
                     <TextField name="response_type" label="Response Type" className="fluid" value={this.state.response_type} onChange={this.updateState} />
+
+                    Response Type 
+
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={this.state.response_type.includes(RESPONSE_TYPES.CODE)}
+                                onChange={this.updateState}
+                                name="response_type_code"
+                                value={RESPONSE_TYPES.CODE} />
+                        }
+                        label="Code" />
                 </div>
 
                 <FormControlLabel
