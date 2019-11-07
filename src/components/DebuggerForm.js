@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 
 const RESPONSE_TYPES = { ID_TOKEN: "id_token", TOKEN : "token", CODE: "code" }
+const RESPONSE_MODES = { QUERY: "response_mode_query", FORM : "response_mode_form", FRAGMENT: "response_mode_fragment" }
 
 class DebuggerForm extends Component {
     constructor(props) {
@@ -26,7 +27,9 @@ class DebuggerForm extends Component {
                 response_type_code: false,
                 response_type_token: false,
                 response_type_id_token: false,
-                response_mode: "",
+                response_mode_form: true,
+                response_mode_query: false,
+                response_mode_fragment: false, 
                 filterProtocolClaims: true,
                 loadUserInfo: true
             }
@@ -36,6 +39,7 @@ class DebuggerForm extends Component {
     updateState = (evnt) => {
         const target = evnt.target.name;
         let value = evnt.target.type === 'checkbox' ? evnt.target.checked : evnt.target.value;
+        if(value == undefined) value = "";
         const connection = { ...this.state.connection, [target]: value}
         const integrationType = IntegrationType(connection.response_type_code, connection.response_type_token, connection.response_type_id_token);
         this.setState({connection: connection, integration_type: integrationType});
@@ -51,10 +55,6 @@ class DebuggerForm extends Component {
 
     componentWillReceiveProps = (props) => {
         this.setState({ connection: {...props.connection} });
-    }
-
-    showHideIntegrationTips = (type)  => {
-
     }
 
     render = () => {
@@ -75,7 +75,7 @@ class DebuggerForm extends Component {
                     <TextField name="post_logout_redirect_uri" label="Post Logout Redirect URI" className="fluid" value={connection.post_logout_redirect_uri} onChange={this.updateState} />
                 </div>
                 <div className="input">
-                    <TextField name="state" label="State" className="fluid" value={connection.state} onChange={this.updateState} />
+                    <TextField name="state" label="State" className="fluid" value={connection.state} onChange={this.updateState} value=""/>
                 </div>
                 <div className="input">
                     <TextField name="scope" label="Scope (required)" className="fluid" value={connection.scope} onChange={this.updateState} />
@@ -84,7 +84,7 @@ class DebuggerForm extends Component {
                 <div className="input grid">
                     <Grid container spacing={8} >
                         <Grid key={1} className="item response_type">  
-                            <h3> Response Type: </h3>
+                            <h4> Response Type (required): </h4>
                             <FormControlLabel
                                 control={
                                     <Switch
@@ -107,7 +107,7 @@ class DebuggerForm extends Component {
                                 } label="Token" className={connection[`response_type_${RESPONSE_TYPES.TOKEN}`] ? "active" : "" } />
                         </Grid>
                         <Grid key={2} className="item response_type_description">
-                            <div className="first" style={{display: this.state.integration_type == "auth_code" ? "block" : "none" }}> 
+                            <div className="first" style={{display: this.state.integration_type === "auth_code" ? "block" : "none" }}> 
                                 <span> Authorization Code Flow </span>
                                 <p>
                                     The Authorization Code Flow returns an Authorization Code to the Client, 
@@ -118,7 +118,7 @@ class DebuggerForm extends Component {
                                 </p>
                                 <p> <b> Ideal for </b> : Applications with backend servers. </p>
                             </div>
-                            <div className="second"  style={{display: this.state.integration_type == "implicit" ? "block" : "none" }}> 
+                            <div className="second"  style={{display: this.state.integration_type === "implicit" ? "block" : "none" }}> 
                                 <span> Implicit Flow </span> 
                                 <p> The Access Token and/or ID Token are returned 
                                 directly to the Client, which may expose them to the End-User and 
@@ -129,7 +129,7 @@ class DebuggerForm extends Component {
                                 </p>
                                 <p> <b> Ideal for </b> : Single Page Applications and Mobile Apps without backend servers. </p>
                             </div>
-                            <div className="third"  style={{display: this.state.integration_type == "hybrid" ? "block" : "none" }}>
+                            <div className="third"  style={{display: this.state.integration_type === "hybrid" ? "block" : "none" }}>
                             <span> Hibrid Flow </span> 
                                 <p> This section describes how to perform authentication using the Hybrid Flow.
                                      When using the Hybrid Flow, some tokens are returned from the Authorization Endpoint and others are returned 
@@ -138,6 +138,34 @@ class DebuggerForm extends Component {
                                 </p>
                                 <p> <b> Ideal for </b> : Clients that need a custom Authentication Flow. </p>
                             </div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <div className="input grid">
+                    <Grid container spacing={8} >
+                        <Grid key={1} className="item response_mode">  
+                            <h4> Response Mode: </h4>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={connection[`${RESPONSE_MODES.FORM}`]}
+                                        onChange={this.updateState} name={`${RESPONSE_MODES.FORM}`} />
+                                } label="Form Post" className={connection[`${RESPONSE_MODES.FORM}`] ? "active" : "" } />
+
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={connection[`${RESPONSE_MODES.FRAGMENT}`]}
+                                        onChange={this.updateState} name={`${RESPONSE_MODES.FRAGMENT}`} />
+                                } label="Frament" className={connection[`${RESPONSE_MODES.FRAGMENT}`] ? "active" : "" } />
+
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={connection[`${RESPONSE_MODES.QUERY}`]}
+                                        onChange={this.updateState} name={`${RESPONSE_MODES.QUERY}`}/>
+                                } label="Query" className={connection[`${RESPONSE_MODES.QUERY}`] ? "active" : "" } />
                         </Grid>
                     </Grid>
                 </div>
