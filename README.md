@@ -1,5 +1,6 @@
 <h1 align="center">
   <br>
+  <img src="https://github.com/pedrolopesme/oidc-toolbox/blob/master/logo.png?raw=true" width="64px" /> <br />
   OIDC Toolbox
   <br>
 </h1>
