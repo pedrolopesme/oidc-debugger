@@ -3,8 +3,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react';
-import OIDC from '../utils/OIDC';
+import {OIDC, IntegrationType} from '../utils/OIDC';
 import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
 
 const RESPONSE_TYPES = { ID_TOKEN: "id_token", TOKEN : "token", CODE: "code" }
 
@@ -12,86 +14,140 @@ class DebuggerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            authority: "",
-            redirect_uri: "",
-            client_id: "",
-            post_logout_redirect_uri: "",
-            scope: "",
-            state: "",
-            nonce: "",
-            response_type: "",
-            response_mode: "",
-            filterProtocolClaims: true,
-            loadUserInfo: true
+            integration_type: "",
+            connection: {
+                authority: "",
+                redirect_uri: "",
+                client_id: "",
+                post_logout_redirect_uri: "",
+                scope: "",
+                state: "",
+                nonce: "",
+                response_type_code: false,
+                response_type_token: false,
+                response_type_id_token: false,
+                response_mode: "",
+                filterProtocolClaims: true,
+                loadUserInfo: true
+            }
         }
     }
 
     updateState = (evnt) => {
         const target = evnt.target.name;
         let value = evnt.target.type === 'checkbox' ? evnt.target.checked : evnt.target.value;
-        this.setState({ [target]: value });
+        const connection = { ...this.state.connection, [target]: value}
+        const integrationType = IntegrationType(connection.response_type_code, connection.response_type_token, connection.response_type_id_token);
+        this.setState({connection: connection, integration_type: integrationType});
     }
 
     submit = (evnt) => {
         evnt.preventDefault();
         evnt.stopPropagation();
-        
-        const oidcParams = {
-            ...this.state,
-        }
 
-        new OIDC().connect(this.state);
+        new OIDC().connect(this.state.connection);
         return false;
     }
 
     componentWillReceiveProps = (props) => {
-        this.setState({ ...props.connection });
+        this.setState({ connection: {...props.connection} });
+    }
+
+    showHideIntegrationTips = (type)  => {
+
     }
 
     render = () => {
+        const connection = this.state.connection;
         return (
-            <form onSubmit={this.submit}>
+            <form id="oidc-form" onSubmit={this.submit}>
                 <h1> Test Connection </h1>
-                <div>
-                    <TextField name="authority" label="Authorize URI (required)" className="fluid" value={this.state.authority} onChange={this.updateState} />
+                <div className="input">
+                    <TextField name="client_id" label="Client ID (required)" className="fluid" value={connection.client_id} onChange={this.updateState} />
                 </div>
-                <div>
-                    <TextField name="redirect_uri" label="Redirect URI (required)" className="fluid" value={this.state.redirect_uri} onChange={this.updateState} />
+                <div className="input">
+                    <TextField name="authority" label="Authorize URI (required)" className="fluid" value={connection.authority} onChange={this.updateState} />
                 </div>
-                <div>
-                    <TextField name="client_id" label="Client ID (required)" className="fluid" value={this.state.client_id} onChange={this.updateState} />
+                <div className="input">
+                    <TextField name="redirect_uri" label="Redirect URI (required)" className="fluid" value={connection.redirect_uri} onChange={this.updateState} />
                 </div>
-                <div>
-                    <TextField name="post_logout_redirect_uri" label="Post Logout Redirect URI" className="fluid" value={this.state.post_logout_redirect_uri} onChange={this.updateState} />
+                <div className="input">
+                    <TextField name="post_logout_redirect_uri" label="Post Logout Redirect URI" className="fluid" value={connection.post_logout_redirect_uri} onChange={this.updateState} />
                 </div>
-                <div>
-                    <TextField name="state" label="State" className="fluid" value={this.state.state} onChange={this.updateState} />
+                <div className="input">
+                    <TextField name="state" label="State" className="fluid" value={connection.state} onChange={this.updateState} />
                 </div>
-                <div>
-                    <TextField name="scope" label="Scope (required)" className="fluid" value={this.state.scope} onChange={this.updateState} />
+                <div className="input">
+                    <TextField name="scope" label="Scope (required)" className="fluid" value={connection.scope} onChange={this.updateState} />
                 </div>
-                <div>
-                    <TextField name="response_type" label="Response Type" className="fluid" value={this.state.response_type} onChange={this.updateState} />
 
-                    Response Type 
+                <div className="input grid">
+                    <Grid container spacing={8} >
+                        <Grid key={1} className="item response_type">  
+                            <h3> Response Type: </h3>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={connection[`response_type_${RESPONSE_TYPES.CODE}`]}
+                                        onChange={this.updateState} name={`response_type_${RESPONSE_TYPES.CODE}`} value={RESPONSE_TYPES.CODE} />
+                                } label="Code" className={connection[`response_type_${RESPONSE_TYPES.CODE}`] ? "active" : "" } />
 
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={this.state.response_type.includes(RESPONSE_TYPES.CODE)}
-                                onChange={this.updateState}
-                                name="response_type_code"
-                                value={RESPONSE_TYPES.CODE} />
-                        }
-                        label="Code" />
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={connection[`response_type_${RESPONSE_TYPES.ID_TOKEN}`]}
+                                        onChange={this.updateState} name={`response_type_${RESPONSE_TYPES.ID_TOKEN}`} value={RESPONSE_TYPES.ID_TOKEN} />
+                                } label="ID Token" className={connection[`response_type_${RESPONSE_TYPES.ID_TOKEN}`] ? "active" : "" } />
+                                
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={connection[`response_type_${RESPONSE_TYPES.TOKEN}`]}
+                                        onChange={this.updateState} name={`response_type_${RESPONSE_TYPES.TOKEN}`} value={RESPONSE_TYPES.TOKEN} />
+                                } label="Token" className={connection[`response_type_${RESPONSE_TYPES.TOKEN}`] ? "active" : "" } />
+                        </Grid>
+                        <Grid key={2} className="item response_type_description">
+                            <div className="first" style={{display: this.state.integration_type == "auth_code" ? "block" : "none" }}> 
+                                <span> Authorization Code Flow </span>
+                                <p>
+                                    The Authorization Code Flow returns an Authorization Code to the Client, 
+                                    which can then exchange it for an ID Token and an Access Token directly. 
+                                    This provides the benefit of not exposing any tokens to the User Agent and 
+                                    possibly other malicious applications with access to the User Agent 
+                                    ( <a href="https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth" target="_blank">More</a> ).
+                                </p>
+                                <p> <b> Ideal for </b> : Applications with backend servers. </p>
+                            </div>
+                            <div className="second"  style={{display: this.state.integration_type == "implicit" ? "block" : "none" }}> 
+                                <span> Implicit Flow </span> 
+                                <p> The Access Token and/or ID Token are returned 
+                                directly to the Client, which may expose them to the End-User and 
+                                applications that have access to the End-User's User Agent. 
+                                
+                                The Authorization Server does not perform Client Authentication. ( 
+                                    <a href="https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth" target="_blank">More</a> ).
+                                </p>
+                                <p> <b> Ideal for </b> : Single Page Applications and Mobile Apps without backend servers. </p>
+                            </div>
+                            <div className="third"  style={{display: this.state.integration_type == "hybrid" ? "block" : "none" }}>
+                            <span> Hibrid Flow </span> 
+                                <p> This section describes how to perform authentication using the Hybrid Flow.
+                                     When using the Hybrid Flow, some tokens are returned from the Authorization Endpoint and others are returned 
+                                     from the Token Endpoint. ] ( 
+                                    <a href="https://openid.net/specs/openid-connect-core-1_0.html#HybridFlowAuth" target="_blank">More</a> ).
+                                </p>
+                                <p> <b> Ideal for </b> : Clients that need a custom Authentication Flow. </p>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </div>
 
                 <FormControlLabel
-                    control={<Checkbox name="filterProtocolClaims" value="true" color="primary" checked={this.state.filterProtocolClaims} onChange={this.updateState} />}
+                    control={<Checkbox name="filterProtocolClaims" value="true" color="primary" checked={connection.filterProtocolClaims} onChange={this.updateState} />}
                     label="Filter Protocol Claims" />
 
                 <FormControlLabel
-                    control={<Checkbox name="loadUserInfo" value="true" color="primary" checked={this.state.loadUserInfo} onChange={this.updateState} />}
+                    control={<Checkbox name="loadUserInfo" value="true" color="primary" checked={connection.loadUserInfo} onChange={this.updateState} />}
                     label="Load User Info" />
 
                 <div className="alignRight">

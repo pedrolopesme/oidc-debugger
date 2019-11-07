@@ -1,9 +1,9 @@
 import * as Oidc from 'oidc-client'
 
 // Integration Types
-const AUTH_CODE = "Authorization Code Flow",
-      HYBRID = "Hybrid Flow",
-      IMPLICITY = "Implicit Flow";
+const AUTH_CODE = "auth_code",
+      HYBRID = "hybrid",
+      IMPLICITY = "implicit";
 
 /**
  * OIDC client lib wrapper

@@ -28,6 +28,59 @@ h1, h2, h3, h4, h5, h6 {
   color: #61dafb;
 }
 
+#oidc-form .input {
+  margin: 15px 0px;
+}
+
+#oidc-form .response_type {
+  text-align: left;
+  width: 49%;
+}
+
+#oidc-form .response_type_hint {
+  color: #999;
+  padding-left: 15px;
+  font-weight: bold;;
+}
+
+#oidc-form .response_type_description {
+  width: 43%;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+#oidc-form .response_type label {
+  border: 1px #ccc solid;
+  display: block;
+  margin: 5px;
+  text-align: left;
+  border-radius: 5px;
+}
+
+#oidc-form .response_type label:hover {
+  background: #f0f0f0;
+}
+
+#oidc-form .response_type label.active {
+  background: #dce0e9;
+}
+
+
+#oidc-form .response_type .MuiTypography-root-232 {
+  display: inline;
+}
+
+#oidc-form .response_type_description .first,
+#oidc-form .response_type_description .second,
+#oidc-form .response_type_description .third  {
+  margin-top: 60px
+}
+
+#oidc-form .response_type_description span {
+  font-weight: bolder;
+  font-size: 22px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
