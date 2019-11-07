@@ -29,7 +29,6 @@ class RedirectContainer extends Component {
                     <div>
                         <JsonComponent name="Auth Info" content={auth} />
                         <Token name="Id Token" token={id_token} />
-                        <Token name="Access Token" token={access_token} />
                     </div>
                 </div>)
         }
