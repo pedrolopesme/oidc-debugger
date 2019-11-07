@@ -28,9 +28,11 @@ export class OIDC {
  * response types. 
  */
 export function IntegrationType(code=false, token=false, idtoken=false){
+    console.log(`idtoken=${idtoken}, code=${code}, token=${token}`);
+    if (!idtoken && !code && !token) return "";
     if (idtoken && !code && !token) return IMPLICITY;
-    if (!idtoken && code && !token) return IMPLICITY;
-    if (!idtoken && code && token)  return IMPLICITY;
+    if (!idtoken && !code && token)  return IMPLICITY;
+    if (idtoken && !code && token)  return IMPLICITY;
     if (!idtoken && code && !token) return AUTH_CODE;
     return HYBRID;
 };
