@@ -7,9 +7,12 @@ import {OIDC, IntegrationType} from '../utils/OIDC';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import { makeStyles } from '@material-ui/core/styles';
 
-const RESPONSE_TYPES = { ID_TOKEN: "id_token", TOKEN : "token", CODE: "code" }
-const RESPONSE_MODES = { QUERY: "response_mode_query", FORM : "response_mode_form", FRAGMENT: "response_mode_fragment" }
+const RESPONSE_TYPES = { ID_TOKEN: "response_type_id_token", TOKEN : "response_type_token", CODE: "response_type_code" }
+const RESPONSE_MODES = { QUERY: "query", FORM : "form", FRAGMENT: "fragment" }
 
 class DebuggerForm extends Component {
     constructor(props) {
@@ -27,9 +30,7 @@ class DebuggerForm extends Component {
                 response_type_code: false,
                 response_type_token: false,
                 response_type_id_token: false,
-                response_mode_form: true,
-                response_mode_query: false,
-                response_mode_fragment: false, 
+                response_mode: "form",
                 filterProtocolClaims: true,
                 loadUserInfo: true
             }
@@ -42,6 +43,7 @@ class DebuggerForm extends Component {
         if(value == undefined) value = "";
         const connection = { ...this.state.connection, [target]: value}
         const integrationType = IntegrationType(connection.response_type_code, connection.response_type_token, connection.response_type_id_token);
+
         this.setState({connection: connection, integration_type: integrationType});
     }
 
@@ -55,6 +57,30 @@ class DebuggerForm extends Component {
 
     componentWillReceiveProps = (props) => {
         this.setState({ connection: {...props.connection} });
+    }
+
+    styledSwitch = (name, label) => {
+        return (
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={this.state.connection[name]}
+                        onChange={this.updateState} name={name} />
+                } label={label} className={this.state.connection[name] ? "active" : "" } />
+        )
+    }
+
+    styledRadio = (name, value, label) => {
+        return (
+                <FormControlLabel value={value} control={
+                    <Radio
+                        name={name}
+                        checked={this.state.connection.response_mode === value}
+                        onChange={this.updateState}
+                        inputProps={{ 'aria-label': value }}
+                        />} label={label} />
+
+        );
     }
 
     render = () => {
@@ -85,26 +111,9 @@ class DebuggerForm extends Component {
                     <Grid container spacing={8} >
                         <Grid key={1} className="item response_type">  
                             <h4> Response Type (required): </h4>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={connection[`response_type_${RESPONSE_TYPES.CODE}`]}
-                                        onChange={this.updateState} name={`response_type_${RESPONSE_TYPES.CODE}`} value={RESPONSE_TYPES.CODE} />
-                                } label="Code" className={connection[`response_type_${RESPONSE_TYPES.CODE}`] ? "active" : "" } />
-
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={connection[`response_type_${RESPONSE_TYPES.ID_TOKEN}`]}
-                                        onChange={this.updateState} name={`response_type_${RESPONSE_TYPES.ID_TOKEN}`} value={RESPONSE_TYPES.ID_TOKEN} />
-                                } label="ID Token" className={connection[`response_type_${RESPONSE_TYPES.ID_TOKEN}`] ? "active" : "" } />
-                                
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={connection[`response_type_${RESPONSE_TYPES.TOKEN}`]}
-                                        onChange={this.updateState} name={`response_type_${RESPONSE_TYPES.TOKEN}`} value={RESPONSE_TYPES.TOKEN} />
-                                } label="Token" className={connection[`response_type_${RESPONSE_TYPES.TOKEN}`] ? "active" : "" } />
+                            {this.styledSwitch(RESPONSE_TYPES.CODE, "Code")}
+                            {this.styledSwitch(RESPONSE_TYPES.ID_TOKEN, "ID Token")}
+                            {this.styledSwitch(RESPONSE_TYPES.TOKEN, "Token")}
                         </Grid>
                         <Grid key={2} className="item response_type_description">
                             <div className="first" style={{display: this.state.integration_type === "auth_code" ? "block" : "none" }}> 
@@ -146,26 +155,11 @@ class DebuggerForm extends Component {
                     <Grid container spacing={8} >
                         <Grid key={1} className="item response_mode">  
                             <h4> Response Mode: </h4>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={connection[`${RESPONSE_MODES.FORM}`]}
-                                        onChange={this.updateState} name={`${RESPONSE_MODES.FORM}`} />
-                                } label="Form Post" className={connection[`${RESPONSE_MODES.FORM}`] ? "active" : "" } />
-
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={connection[`${RESPONSE_MODES.FRAGMENT}`]}
-                                        onChange={this.updateState} name={`${RESPONSE_MODES.FRAGMENT}`} />
-                                } label="Frament" className={connection[`${RESPONSE_MODES.FRAGMENT}`] ? "active" : "" } />
-
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={connection[`${RESPONSE_MODES.QUERY}`]}
-                                        onChange={this.updateState} name={`${RESPONSE_MODES.QUERY}`}/>
-                                } label="Query" className={connection[`${RESPONSE_MODES.QUERY}`] ? "active" : "" } />
+                            <RadioGroup defaultValue="form" aria-label="Response Mode" name="response_mode" className="responseModeRadios">
+                                {this.styledRadio("response_mode", RESPONSE_MODES.FORM, "Form Post")}
+                                {this.styledRadio("response_mode", RESPONSE_MODES.FRAGMENT, "Fragment")}
+                                {this.styledRadio("response_mode", RESPONSE_MODES.QUERY, "Query")}
+                            </RadioGroup>
                         </Grid>
                     </Grid>
                 </div>

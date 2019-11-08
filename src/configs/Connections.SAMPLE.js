@@ -9,9 +9,7 @@ export const Connections = [
             response_type_code: true,
             response_type_token: false,
             response_type_id_token: true,
-            response_mode_form: true,
-            response_mode_query: false,
-            response_mode_fragment: false,
+            response_mode: "form",
             scope: "openid tester",
             filterProtocolClaims: true,
             loadUserInfo: true
