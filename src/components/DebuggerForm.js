@@ -23,6 +23,7 @@ class DebuggerForm extends Component {
                 authority: "",
                 redirect_uri: "",
                 client_id: "",
+                client_secret: "",
                 post_logout_redirect_uri: "",
                 scope: "",
                 state: "",
@@ -90,8 +91,15 @@ class DebuggerForm extends Component {
                 <h1> Test Connection </h1>
 
                 <h4> Credentials: </h4>
-                <div className="input">
-                    <TextField name="client_id" label="Client ID (required)" className="fluid" value={connection.client_id} onChange={this.updateState} />
+                <div className="input grid">
+                    <Grid container spacing={8} >
+                        <Grid key={1} className="item">  
+                            <TextField name="client_id" label="Client ID (required)" className="fluid" value={connection.client_id} onChange={this.updateState} />
+                        </Grid>
+                        <Grid key={1} className="item">  
+                            <TextField name="client_secret" label="Client Secret" className="fluid" value={connection.client_secret} onChange={this.updateState} />
+                        </Grid>
+                    </Grid>
                 </div>
 
                 <h4> URIs: </h4>

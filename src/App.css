@@ -31,6 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 div.SplitPane.debuggerComponent.vertical  .Pane.vertical.Pane2   {
   overflow-y: scroll;
   padding-bottom: 50px;
+  padding-left: 10px;
 }
 
 #oidc-form h4 {
@@ -107,6 +108,11 @@ div.SplitPane.debuggerComponent.vertical  .Pane.vertical.Pane2   {
 
 #oidc-form .responseModeRadios label:hover {
   background: #f0f0f0;
+}
+
+.input.grid div.item {
+  width: 48%;
+  margin: 0 5px;
 }
 
 @keyframes App-logo-spin {

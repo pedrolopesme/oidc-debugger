@@ -4,6 +4,7 @@ export const Connections = [
         connection: {
             authority: "https://myoidc.com",
             client_id: "my-client",
+            client_secret: "",
             redirect_uri: "http://localhost:8080/redirect",
             post_logout_redirect_uri: "http://localhost:8080/logout",
             response_type_code: true,
