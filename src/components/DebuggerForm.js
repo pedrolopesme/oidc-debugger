@@ -57,7 +57,8 @@ class DebuggerForm extends Component {
     }
 
     componentWillReceiveProps = (props) => {
-        this.setState({ connection: {...props.connection} });
+        const integrationType = IntegrationType(props.connection.response_type_code, props.connection.response_type_token, props.connection.response_type_id_token);
+        this.setState({ connection: {...props.connection}, integration_type: integrationType });
     }
 
     styledSwitch = (name, label) => {
@@ -112,9 +113,13 @@ class DebuggerForm extends Component {
                 <div className="input">
                     <TextField name="post_logout_redirect_uri" label="Post Logout Redirect URI" className="fluid" value={connection.post_logout_redirect_uri} onChange={this.updateState} />
                 </div>
+
+                <h4> Security: </h4>
                 <div className="input">
                     <TextField name="state" label="State" className="fluid" value={connection.state} onChange={this.updateState} value=""/>
                 </div>
+
+                <h4> Scopes (openid will be automatically included): </h4>
                 <div className="input">
                     <TextField name="scope" label="Scope (required)" className="fluid" value={connection.scope} onChange={this.updateState} />
                 </div>
