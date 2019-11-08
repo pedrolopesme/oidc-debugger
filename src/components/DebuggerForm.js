@@ -88,9 +88,13 @@ class DebuggerForm extends Component {
         return (
             <form id="oidc-form" onSubmit={this.submit}>
                 <h1> Test Connection </h1>
+
+                <h4> Credentials: </h4>
                 <div className="input">
                     <TextField name="client_id" label="Client ID (required)" className="fluid" value={connection.client_id} onChange={this.updateState} />
                 </div>
+
+                <h4> URIs: </h4>
                 <div className="input">
                     <TextField name="authority" label="Authorize URI (required)" className="fluid" value={connection.authority} onChange={this.updateState} />
                 </div>

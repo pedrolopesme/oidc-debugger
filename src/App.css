@@ -28,6 +28,16 @@ h1, h2, h3, h4, h5, h6 {
   color: #61dafb;
 }
 
+div.SplitPane.debuggerComponent.vertical  .Pane.vertical.Pane2   {
+  overflow-y: scroll;
+  padding-bottom: 50px;
+}
+
+#oidc-form h4 {
+  text-align: left;
+  margin: 25px 0;
+}
+
 #oidc-form .input {
   margin: 15px 0px;
 }
